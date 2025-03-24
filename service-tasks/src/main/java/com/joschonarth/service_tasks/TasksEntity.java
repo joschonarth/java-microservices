@@ -6,12 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name = "Tasks")
+@Table(name = "tasks")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,6 +25,7 @@ public class TasksEntity {
   private Long id;
 
   private String title;
+  private String email;
   private LocalDateTime dueDate;
   private boolean notified;
 }
