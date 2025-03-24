@@ -19,9 +19,16 @@ public class TasksService {
     LocalDateTime deadline = LocalDateTime.now().plusDays(1);
     List<TasksEntity> tasks = tasksRepository.findTasksDueWithinDeadline(deadline);
     for (TasksEntity task : tasks) {
-      NotificationRequest request = new NotificationRequest("Sua tarefa:" + task.getTitle() + "está prestes a vencer!", task.getEmail());
+      NotificationRequest request = new NotificationRequest(
+        "===== ATENÇÃO =====\n" + 
+        "-----------------------------\n" + 
+        "SUA TAREFA \"" + task.getTitle() + "\" ESTÁ PRESTES A VENCER!\n" + 
+        "-----------------------------", 
+        task.getEmail()
+      );
       notificationClient.sendNotification(request);
       task.setNotified(true);
+      tasksRepository.save(task);
     }
   }
 }
